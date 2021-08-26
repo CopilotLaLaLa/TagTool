@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tag</title>
+    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="alert.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    
+    <header>
+        <div class="main-type">
+            <div class="main-choose">
+                <span>请选择主类型：</span>
+                <span id="main-type">文明安全</span>
+                <span class="down"><i class="fa fa-angle-double-down "></i></span>
+                <ul>
+                    <li onclick="chooseMainType(this)">文明安全</li>
+                    <li onclick="chooseMainType(this)">城管违法行为</li>
+                </ul>
+            </div>
+            
+           <!--  <select id="main-type">
+                <option value ="文明安全">文明安全</option>
+                <option value ="城管违法行为">城管违法行为</option>
+            </select> -->
+        </div>
+    </header>
+    <div class="tool-body">
+        <div class="tool-width">
+            <div class="pic-show">
+                <div class="paint-tools">
+                    <span title="绘制四边形" class="paint-button" onclick="useRect()" style="margin-left: 50px">
+                        <i class="fa fa-square-o fa-2x"></i>
+                    </span>
+                    <span title="绘制圆形" class="paint-button" onclick="useCircle()">
+                        <i class="fa fa-circle-o fa-2x"></i>
+                    </span>
+                    <span title="清空选框" class="paint-button" onclick="clearDraw()">
+                        <i class="fa fa-eraser fa-2x"></i>
+                    </span>
+                    <span title="清空全部" class="paint-button" onclick="clearAll()">
+                        <i class="fa fa-undo fa-2x"></i>
+                    </span>
+                    <span title="上传单张图片" class="paint-button">
+                        <i class="fa fa-file-image-o fa-2x">
+                        <input id="upload-pic" class="upload-pic" multiple type="file"></i>
+                    </span>
+                    <span title="上传文件夹" class="paint-button">
+                        <i class="fa fa-file fa-2x"></i>
+                        <input id="upload-dir" class="upload-pic" multiple type="file" webkitdirectory>
+                    </span>
+                </div>
+                <div class="canvas-paint">
+                    <span class="canvas-tips">请选择上方工具上传图片</span>
+                    <canvas id="image-canvas" class="image-canvas" width="800" height="600"></canvas>
+                    <canvas id="draw-canvas" class="draw-canvas" width="800" height="600"></canvas>
+                </div>
+                <div class="page">
+                    <div class="left-button">
+                        <span id="last-picture" class="back-button">
+                            上一张                           
+                        </span> 
+                    </div>
+                    <div class="page-message">
+                        <span id="page-num">0</span>
+                        <span>/</span>
+                        <span id="page-length">0</span>
+                    </div>
+                    <div class="right-button">
+                        <span id="next-picture" class="next-button">
+                            下一张
+                        </span> 
+                    </div>
+    
+                </div>
+            </div>
+            <div class="pic-message">
+                <div class="other-tpye">
+                    <select id="sub-type" class="other-select">
+                        <!-- <option value ="闯红灯">闯红灯</option>
+                        <option value ="车辆横冲直撞">车辆横冲直撞</option>
+                        <option value="乱摆放">乱摆放</option>
+                        <option value="乱扔垃圾">乱扔垃圾</option>
+                        <option value="共享单车乱停放">共享单车乱停放</option> -->
+                    </select>
+                </div>
+                <div class="main-message">
+                    <div class="message-margin">
+                        <span class="message-span">发生地点：</span>
+                        <div class="pos-rea">
+                            <input class="message-input" id="happen-place" type="text">
+                            <span class="input-pos message-left"></span>
+                            <span class="input-pos message-right"></span>
+                            <span class="input-pos message-top"></span>
+                            <span class="input-pos message-bottom"></span>
+                        </div>
+                    </div>
+                    <div class="message-margin">
+                        <span class="message-span">发生日期：</span>
+                        <div class="pos-rea">
+                            <input class="message-input" id="happen-date" type="date">
+                            <span class="input-pos message-left"></span>
+                            <span class="input-pos message-right"></span>
+                            <span class="input-pos message-top"></span>
+                            <span class="input-pos message-bottom"></span>
+                        </div>
+                    </div>
+                    <div class="message-margin">
+                        <span class="message-span">所属街道：</span>
+                        <div class="pos-rea">
+                            <input class="message-input" id="belong-street" type="text">
+                            <span class="input-pos message-left"></span>
+                            <span class="input-pos message-right"></span>
+                            <span class="input-pos message-top"></span>
+                            <span class="input-pos message-bottom"></span>
+                        </div>
+                    </div>
+                    <div class="message-margin">
+                        <span class="message-span">简要描述：</span>
+                        <div class="pos-rea">
+                            <input class="message-input" id="brief-desc" type="text">
+                            <span class="input-pos message-left"></span>
+                            <span class="input-pos message-right"></span>
+                            <span class="input-pos message-top"></span>
+                            <span class="input-pos message-bottom"></span>
+                        </div>
+                    </div>
+                    <div class="message-margin">
+                        <span class="message-span">备注：</span>
+                        <div class="pos-rea">
+                            <input class="message-input" id="remark" type="text">
+                            <span class="input-pos message-left"></span>
+                            <span class="input-pos message-right"></span>
+                            <span class="input-pos message-top"></span>
+                            <span class="input-pos message-bottom"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-button-box"><button class="sub-button" onclick="getTable()">提交</button></div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="alert"></div>
+
+</body>
+
+<script src="index.js"></script>
+
+</html>
